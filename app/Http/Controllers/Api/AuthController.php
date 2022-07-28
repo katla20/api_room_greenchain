@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,18 +17,31 @@ class AuthController extends BaseController
     
     public function login(Request $request)
     {
+        $request->validate([
+            'username' => 'required|email',
+            'password' => 'required',
+        ]);
+        
         $user = User::whereEmail($request->email)->first();
-        if (!is_null($user) && Hash::check($request->password, $user->password)) {
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return response()->json([
-                'res' => true, 
-                'token' => $token, 
-                'message' => "welcome to greenchain app"],
-                200);
-        } else
-            return response()->json([
-                'res' => false, 
-                'message' => "password incorrect!!"],
-            404);
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
+        }
+
+        return response()->json([
+            'type' => 'Bearer',
+            'token' => $user->createToken('auth_token')->plainTextToken,
+        ]);
+
+    }
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'success' => true,
+        ]);
     }
 }

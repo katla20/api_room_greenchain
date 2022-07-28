@@ -30,25 +30,20 @@ trait ReadFileTrait {
   
     }
 
-    public function ReadTxt(Request $request)
+    public function LoadTxtFile(Request $request)
     {
 
         try {
 
-            $matrix = json_decode(file_get_contents(public_path(). "/matrix.txt"), true);
+            $map = json_decode(file_get_contents(public_path(). "/matrix.txt"), true);
 
-        } catch (\Throwable $e) {
+            return response()->json($map);
+
+        } catch (\Exception $e) {
      
-            return response()->json([
-                'status' => false,
-                'message' => $e
-            ],500);
+            return $e;
         }
-        
 
-        return response()->json([
-            'status' => true, 'message' => "charge data",'data'=> $matrix],
-        200);
     }
   
 }

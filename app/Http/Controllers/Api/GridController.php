@@ -37,11 +37,10 @@ class GridController extends Controller
             'data'    => $grid,
         ],200);
     }
-    function GridLoadDesign(){
+    function GridLoadDesign(Request $request){
         try {
-            //$room_map = $this->ReadTxt($request);
-            $loadFile = json_decode(file_get_contents(public_path(). "/matrix.txt"), true);
-
+            $grid_map = $this->LoadTxtFile($request);
+            
         } catch (\Exception $e) {
      
             return response()->json([
@@ -52,7 +51,7 @@ class GridController extends Controller
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $loadFile,
+            'data'    => $grid_map,
         ],200);
     }
     function GridLightUp(){

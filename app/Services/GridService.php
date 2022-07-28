@@ -2,21 +2,23 @@
 
 namespace App\Services;
 
+use App\Http\Repository\GridRepository;
+
 class GridService
 {
-    public const SYNC_RESULT_SUCCESS = 1;
-    public const SYNC_RESULT_BAD_FILE = 2;
-    public const SYNC_RESULT_UNMODIFIED = 3;
+    public const WALL = 0;
+    public const HALLWAY = 1;
+    public const SCOPE = 3;//GRIDS THAT CAN ILLUMINATE THE BULB
 
-    //private GridRepository $gridRepository;
+    private GridRepository $gridRepository;
     private $grid;
 
 
     public function __construct(
-        //GridRepository $gridRepository,
+        $gridRepository,
         $grid
     ) {
-        //$this->gridRepository = $gridRepository;
+        $this->gridRepository = $gridRepository;
         $this->grid = $grid;
 
     }
@@ -24,7 +26,7 @@ class GridService
     public function setGrid()
     {
         try {
-             $this->grid = $this->gridRepository->getMatrix();
+             $this->grid = $this->gridRepository->getGridData();
         } catch (\Exception $e) {
             return $e;
         }
