@@ -1,19 +1,38 @@
 <?php
 
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\GridController;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
+Route::get('/get', function () {
+   return 'yes';
+});
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', [AuthController::class, 'login']);
+
+Route::get('show_', [RoomController::class, 'index']);
+Route::get('read_', [RoomController::class, 'ReadTxt']);
+
+Route::group(['middleware'=>'auth:sanctum','prefix' => 'grid'], function(){
+    /*endpoint grid*/
+    Route::get('random', [GridController::class, 'GridRandom']);
+    Route::get('prototype', [GridController::class, 'GridPrototype']);
+    Route::get('load_design', [GridController::class, 'GridLoadDesign']);
+    Route::get('light_up', [GridController::class, 'GridLightUp']);
+
+   /* Route::get('/user_data', function (Request $request) {
+        return $request->user();
+    });*/
+    
 });
