@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\ReadFileTrait;
+use App\Http\Repository\GridRepository;
 
 class GridController extends Controller
 {
@@ -23,18 +24,13 @@ class GridController extends Controller
             'data'    => [],
         ],200);
     }
-    function GridPrototype(){
-        $grid = [
-            [0,0,0,1,0,1,1,1],
-            [0,1,0,0,0,0,0,0],
-            [0,1,0,0,0,1,1,1],
-            [0,1,1,1,1,0,0,0],
-            [0,1,0,0,0,0,0,0]
-        ];
+    function GridPrototype(GridRepository $gridRepository){
+    
+        $grid_map = $gridRepository->getGridData();
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $grid,
+            'data'    => $grid_map,
         ],200);
     }
     function GridLoadDesign(Request $request){
