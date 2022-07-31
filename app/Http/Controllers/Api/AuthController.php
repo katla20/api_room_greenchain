@@ -17,6 +17,7 @@ class AuthController extends BaseController
     
     public function login(Request $request)
     {
+
         $request->validate([
             'username' => 'required|email',
             'password' => 'required',
@@ -36,6 +37,7 @@ class AuthController extends BaseController
         ]);
 
     }
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();

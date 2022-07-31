@@ -20,7 +20,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 Route::get('test', function(){
-    return 'prueba de api';
+    return str_replace('\\', '/', dirname(__FILE__)).'/storage/app/certs';
 });
 
 Route::group(['middleware'=>'auth:sanctum','prefix' => 'grid'], function(){
