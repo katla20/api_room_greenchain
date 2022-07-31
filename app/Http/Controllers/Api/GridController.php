@@ -20,7 +20,7 @@ class GridController extends Controller
     function GridRandom(){
         return response()->json([
             'status'  => true,
-            'message' => dirname(__FILE__)."/../storage/app/certs",
+            'message' => 'success',
             'data'    => [],
         ],200);
     }
