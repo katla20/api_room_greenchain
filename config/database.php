@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Str;
-
+$cert_base = realpath(dirname(__FILE__)."/../storage/app/certs");
+//$DATABASE_URL=parse_url('mysql://ha45sqm6hqzp:pscale_pw_wLnQOCIKvw-cAR86D9rOiiXdvoY0oxirH_9EN5Cx-qw@26dqiupub5x3.us-east-4.psdb.cloud:3306/api_greenchain?MYSQL_ATTR_SSL_CA='. $cert_base . env('MYSQL_ATTR_SSL_CA'));
 return [
 
     /*
@@ -60,7 +61,7 @@ return [
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
-            ]) : [],
+            ]) : []
         ],
 
         'pgsql' => [

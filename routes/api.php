@@ -19,6 +19,10 @@ use App\Http\Controllers\Api\GridController;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 
+Route::get('test', function(){
+    return 'prueba de api';
+});
+
 Route::group(['middleware'=>'auth:sanctum','prefix' => 'grid'], function(){
 
     Route::get('random', [GridController::class, 'GridRandom']);
