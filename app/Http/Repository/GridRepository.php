@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Repository;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class GridRepository
 {
@@ -8,52 +10,30 @@ class GridRepository
    *
    * @return array
    */
-  public function getGridData($default=true, $row=5, $column=6)
+  public function generateColumGrid($col){
+    $dataCol = array();
+    for ($i = 0; $i < $col; $i++) {
+      array_push($dataCol,rand(0,1));
+    }
+    return $dataCol;
+  }
+
+  public function getGridData($default = true, $row = 5, $col = 6)
   {
-    // let getRandomInt = (min: number = 0, max: number = 2): number => {
-    //   let rnd: number = Math.floor(Math.random() * (max - min)) + min;
-    //   rnd >= 2 ? rnd = 1 : rnd = rnd;
-    //   return rnd;
-    // }
-    // $grid: Array<Array<0 | 1>> = new Array();
-    // if (!!$default) {
-    //   mtx.push([0, 0, 0, 1, 0, 0])
-    //   mtx.push([0, 0, 0, 1, 0, 1])
-    //   mtx.push([0, 1, 0, 0, 1, 0])
-    //   mtx.push([1, 0, 0, 1, 0, 0]);
-    //   mtx.push([1, 0, 0, 1, 1, 0]);
-    // } else {
+    $map = array();
 
-    //   for (let index = 0; index < rows; index++) {
-
-    //     let dataColumns: Array<0 | 1> = new Array();
-    //     for (let index1 = 0; index1 < column; index1++) {
-    //       dataColumns.push((getRandomInt() as 0 | 1))
-    //     }
-    //     mtx.push([...dataColumns])
-
-    //   }
-    // }
-    // return mtx;
-
-
-
-    if(!$default){
-      return [
-        [0,0,0,1,0,1,1,1],
-        [0,1,0,0,0,0,0,0],
-        [0,1,0,0,0,1,1,1],
-        [0,1,1,1,1,0,0,0],
-        [0,1,0,0,0,0,0,0]
-      ];
+    if (!$default) {
+        for ($i = 1; $i < $row; $i++) {
+          array_push($map,$this->generateColumGrid($col));
+        }
+        return $map;
     }
 
-    return [
-        [0,0,0,1,0,1,1,1],
-        [0,1,0,0,0,0,0,0],
-        [0,1,0,0,0,1,1,1],
-        [0,1,1,1,1,0,0,0],
-        [0,1,0,0,0,0,0,0]
-    ];
+    array_push($map,[0, 0, 0, 1, 0, 0]);
+    array_push($map,[0, 0, 0, 1, 0, 1]);
+    array_push($map,[0, 1, 0, 0, 1, 0]);
+    array_push($map,[1, 0, 0, 1, 0, 0]);
+
+   return $map;
   }
 }
