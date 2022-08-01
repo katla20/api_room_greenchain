@@ -20,14 +20,20 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
 
 Route::get('test', function(){
-    return str_replace('\\', '/', dirname(__FILE__)).'/storage/app/certs';
+
+    return response()->json([
+        'status'  => true,
+        'message' => 'success',
+        'data'    => ['url'=>str_replace('\\', '/', dirname(__FILE__)).'/storage/app/certs'],
+    ],200);
 });
 
-Route::group(['middleware'=>'auth:sanctum','prefix' => 'grid'], function(){
+//Route::group(['middleware'=>'auth:sanctum','prefix' => 'grid'], function(){
+Route::group(['prefix' => 'grid'], function(){
 
     Route::get('random', [GridController::class, 'GridRandom']);
     Route::get('prototype', [GridController::class, 'GridPrototype']);
-    Route::get('load_design', [GridController::class, 'GridLoadDesign']);
+    Route::post('load_design', [GridController::class, 'GridLoadDesign']);
     Route::get('light_up', [GridController::class, 'GridLightUp']);
 
 });

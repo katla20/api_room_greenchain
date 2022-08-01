@@ -17,11 +17,13 @@ class GridController extends Controller
      * @param  \Throwable  $exception
      * @return \Illuminate\Http\Response
      */
-    function GridRandom(){
+    function GridRandom(GridRepository $gridRepository){
+
+        $grid_map = $gridRepository->getGridData(false,7,7);
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => [],
+            'data'    => $grid_map,
         ],200);
     }
     function GridPrototype(GridRepository $gridRepository){
@@ -34,8 +36,10 @@ class GridController extends Controller
         ],200);
     }
     function GridLoadDesign(Request $request){
+
+        $request->all();
         try {
-            $grid_map = $this->LoadTxtFile($request);
+            $grid_map = $this->loadTxtFile($request);
             
         } catch (\Exception $e) {
      
@@ -56,5 +60,11 @@ class GridController extends Controller
             'message' => 'success',
             'data'    => [],
         ],200);
+    }
+
+
+    function loadTxtFile(Request $request)
+    {
+        return $request->all();
     }
 }

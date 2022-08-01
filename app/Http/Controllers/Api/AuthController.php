@@ -19,7 +19,7 @@ class AuthController extends BaseController
     {
 
         $request->validate([
-            'username' => 'required|email',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
         
