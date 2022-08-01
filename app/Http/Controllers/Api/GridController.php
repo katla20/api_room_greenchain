@@ -37,10 +37,10 @@ class GridController extends Controller
     }
     function GridLoadDesign(Request $request){
 
-        $request->all();
+        
         try {
-            $grid_map = $this->loadTxtFile($request);
-            
+            $request->all();
+
         } catch (\Exception $e) {
      
             return response()->json([
@@ -51,10 +51,11 @@ class GridController extends Controller
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $grid_map,
+            'data'    => $request->all(),
         ],200);
     }
     function GridLightUp(){
+
         return response()->json([
             'status'  => true,
             'message' => 'success',
@@ -62,9 +63,28 @@ class GridController extends Controller
         ],200);
     }
 
-
-    function loadTxtFile(Request $request)
-    {
-        return $request->all();
+    function mapSolutionGrid(){
+        return 
+        [
+            [
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }"
+            ],
+            [
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }"
+            ],
+            [
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }",
+                "{ 'light': false, 'bulb': false, 'wall': false }"
+            ]
+        ];
     }
+
 }
