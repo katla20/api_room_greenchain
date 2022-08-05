@@ -23,11 +23,11 @@ class GridController extends Controller
      */
 
     public function __construct(
-        GridService $dta
-        //,ResolveService $resolve
+        GridService $dta,
+        ResolveService $resolve
         ){
             $this->dta = $dta;
-            //$this->resolve = $resolve;
+            $this->resolve = $resolve;
         }   
 
     function gridRandom(): JsonResponse {
@@ -82,6 +82,26 @@ class GridController extends Controller
             'status'  => true,
             'message' => 'success',
             'data'    => $this->dta->getGridSolved($matrix)
+        ],200);
+    }
+
+    function formatMatrixResolveToGrid(Request $request): JsonResponse {
+       
+        try {
+            //recibo y proceso data
+            $matrix=$request->all();
+
+        } catch (\Exception $e) {
+     
+            return response()->json([
+                'status' => false,
+                'message' => $e
+            ],500);
+        }
+        return response()->json([
+            'status'  => true,
+            'message' => 'success',
+            'data'    => $this->dta->formatMatrixResolveToGrid($matrix)
         ],200);
     }
 

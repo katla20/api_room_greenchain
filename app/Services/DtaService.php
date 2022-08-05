@@ -92,7 +92,7 @@ class DtaService {
         'positiony' => 0
       ],
       [
-        'state'     =>'bulb',
+        'state'     =>'light',
         'positionx' => 0,
         'positiony' => 0
       ],
@@ -139,7 +139,7 @@ class DtaService {
         'positiony'=>0
       ],
       [
-        'state' => 'light',
+        'state' => 'bulb',
         'positionx'=>0,
         'positiony'=>0
       ],
@@ -154,7 +154,7 @@ class DtaService {
         'positiony'=>0
       ],
       [
-        'state' => 'light',
+        'state' => 'bulb',
         'positionx'=>0,
         'positiony'=>0
       ],
@@ -186,7 +186,7 @@ class DtaService {
         'positiony'=>0
       ],
       [
-        'state' => 'light',
+        'state' => 'bulb',
         'positionx'=>0,
         'positiony'=>0
       ],
@@ -233,7 +233,7 @@ class DtaService {
         'positiony'=> 0
       ],
       [
-        'state' => 'light',
+        'state' => 'bulb',
         'positionx'=>0,
         'positiony'=>0
       ],
@@ -266,7 +266,7 @@ class DtaService {
         'positiony'=> 0
       ],
       [
-        'state'=> 'light',
+        'state'=> 'bulb',
         'positionx'=> 0,
         'positiony'=> 0
       ],
@@ -286,7 +286,7 @@ class DtaService {
         'positiony'=> 0
       ],
       [
-        'state'=> 'light',
+        'state'=> 'bulb',
         'positionx'=> 0,
         'positiony'=> 0
       ]
@@ -304,7 +304,7 @@ class DtaService {
         'positiony'=> 0
       ],
       [
-        'state'=> 'light',
+        'state'=> 'bulb',
         'positionx'=> 0,
         'positiony'=> 0
       ],
@@ -395,7 +395,7 @@ class DtaService {
         'positiony'=> 0
       ], 
       [
-        'state' =>'light',
+        'state' =>'bulb',
         'positionx'=> 0,
         'positiony'=> 0
       ], 
@@ -410,7 +410,7 @@ class DtaService {
         'positiony'=> 0
       ], 
       [
-        'state' =>'light',
+        'state' =>'bulb',
         'positionx'=> 0,
         'positiony'=> 0
       ], 

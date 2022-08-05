@@ -41,6 +41,35 @@ class GridService extends GridDto implements State
         ];
     }
 
+    public function formatMatrixResolveToGrid(array $matrix =[]): array
+    {
+        // $statesKeys = [
+        //     'dark' => 2,
+        //     'wall' => 1,
+        //     'light' => 3,
+        //     'bulb' => 4 
+        // ];
+        $statesNames = [
+            2=>'dark',
+            1=>'wall',
+            3=>'light',
+            4=>'bulb' 
+        ];
+
+        $arr = array();
+        foreach ($matrix as $posx => $row) {
+            foreach ($row as $posy => $data) {
+                $arr[$posx][$posy]= $statesNames[$data];
+                //$arr[$posx][$posy]=$statesKeys[$data['state']];
+            }
+        }
+
+        return [
+            'grid'=> $arr,
+            'matrix' => $matrix
+        ];
+    }
+
     public function getState(int $number): array
     {
         return [];

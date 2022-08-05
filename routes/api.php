@@ -35,5 +35,6 @@ Route::group(['prefix' => 'grid'], function(){
     Route::get('prototype', [GridController::class, 'gridPrototype']);
     Route::post('load_txt', [GridController::class, 'gridLoadTxt']);
     Route::post('light_up', [GridController::class, 'gridLightUp']);
-
+    Route::post('format_togrid', [GridController::class, 'formatMatrixResolveToGrid']);
+    
 });
