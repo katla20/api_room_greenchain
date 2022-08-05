@@ -2,40 +2,49 @@
 
 namespace App\Services;
 
-use App\Http\Repository\GridRepository;
+use App\Models\GridDto;
+use App\Services\DtaService;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
-class GridService
+
+class GridService extends GridDto implements State
 {
-    public const WALL = 0;
-    public const HALLWAY = 1;
-    public const SCOPE = 3;//GRIDS THAT CAN ILLUMINATE THE BULB
-
-    private GridRepository $gridRepository;
-    private $grid;
-
-
     public function __construct(
-        $gridRepository,
-        $grid
-    ) {
-        $this->gridRepository = $gridRepository;
-        $this->grid = $grid;
-
-    }
-
-    public function setGrid()
+        DtaService $dta)
     {
-        try {
-             $this->grid = $this->gridRepository->getGridData();
-        } catch (\Exception $e) {
-            return $e;
-        }
-
-        return $this;
+        $this->dta = $dta;
     }
-
-    public function getGrid()
+    
+    public function getGrid(bool $default): array
     {
-        return $this->grid;
+        $matrix = $this->dta->getMatrix($default);
+        return [
+            'grid'=> $this->dta->mapGrid($matrix),
+            'matrix' => $matrix
+        ];
     }
+
+    public function processData(array $matrix): array
+    {
+        return [
+            'grid'=> $this->dta->mapGrid($matrix),
+            'matrix' => $matrix
+        ];
+    }
+
+    public function getGridSolved(array $matrix): array
+    {
+        return [
+            'grid'=> $this->dta->mapGridSolved($matrix),
+            'matrix' => $matrix
+        ];
+    }
+
+    public function getState(int $number): array
+    {
+        return [];
+    }
+
+
 }

@@ -31,9 +31,9 @@ Route::get('test', function(){
 //Route::group(['middleware'=>'auth:sanctum','prefix' => 'grid'], function(){
 Route::group(['prefix' => 'grid'], function(){
 
-    Route::get('random', [GridController::class, 'GridRandom']);
-    Route::get('prototype', [GridController::class, 'GridPrototype']);
-    Route::post('load_design', [GridController::class, 'GridLoadDesign']);
-    Route::get('light_up', [GridController::class, 'GridLightUp']);
+    Route::get('random', [GridController::class, 'gridRandom']);
+    Route::get('prototype', [GridController::class, 'gridPrototype']);
+    Route::post('load_txt', [GridController::class, 'gridLoadTxt']);
+    Route::post('light_up', [GridController::class, 'gridLightUp']);
 
 });

@@ -4,8 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Services\GridService;
+use App\Services\ResolveService;
 use App\Traits\ReadFileTrait;
-use App\Http\Repository\GridRepository;
+use Illuminate\Support\Arr;
+
 
 class GridController extends Controller
 {
@@ -17,29 +21,36 @@ class GridController extends Controller
      * @param  \Throwable  $exception
      * @return \Illuminate\Http\Response
      */
-    function GridRandom(GridRepository $gridRepository){
 
-        $grid_map = $gridRepository->getGridData(false,7,7);
+    public function __construct(
+        GridService $dta
+        //,ResolveService $resolve
+        ){
+            $this->dta = $dta;
+            //$this->resolve = $resolve;
+        }   
+
+    function gridRandom(): JsonResponse {
+
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $grid_map,
+            'data'    => $this->dta->getGrid(false)
         ],200);
     }
-    function GridPrototype(GridRepository $gridRepository){
-    
-        $grid_map = $gridRepository->getGridData();
+    function gridPrototype(): JsonResponse {
+
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $grid_map,
+            'data'    => $this->dta->getGrid(true),
         ],200);
     }
-    function GridLoadDesign(Request $request){
+    function gridLoadTxt(Request $request): JsonResponse {
 
-        
         try {
-            $request->all();
+            //recibo y proceso data
+            $matrix = $this->dta->processData($request->all());
 
         } catch (\Exception $e) {
      
@@ -51,40 +62,27 @@ class GridController extends Controller
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $request->all(),
+            'data'    => $matrix,
         ],200);
     }
-    function GridLightUp(){
+    function gridLightUp(Request $request): JsonResponse {
+       
+        try {
+            //recibo y proceso data
+            $matrix=$request->all();
 
+        } catch (\Exception $e) {
+     
+            return response()->json([
+                'status' => false,
+                'message' => $e
+            ],500);
+        }
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => [],
+            'data'    => $this->dta->getGridSolved($matrix)
         ],200);
-    }
-
-    function mapSolutionGrid(){
-        return 
-        [
-            [
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }"
-            ],
-            [
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }"
-            ],
-            [
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }",
-                "{ 'light': false, 'bulb': false, 'wall': false }"
-            ]
-        ];
     }
 
 }
