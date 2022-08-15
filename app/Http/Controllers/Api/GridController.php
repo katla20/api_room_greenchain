@@ -78,10 +78,14 @@ class GridController extends Controller
                 'message' => $e
             ],500);
         }
+
+        $resolve = $this->resolve->gridSolution();
+        $resolveStatic = $this->dta->getGridSolved($matrix);
+
         return response()->json([
             'status'  => true,
             'message' => 'success',
-            'data'    => $this->dta->getGridSolved($matrix)
+            'data'    => $resolve
         ],200);
     }
 

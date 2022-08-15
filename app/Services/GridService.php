@@ -2,18 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\GridDto;
+use App\Models\Grid;
 use App\Services\DtaService;
+use App\Services\ResolveService;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
 
-class GridService extends GridDto implements State
+class GridService extends Grid implements GridInterface
 {
     public function __construct(
-        DtaService $dta)
+        DtaService $dta,
+		ResolveService $rlve,
+		)
     {
         $this->dta = $dta;
+		$this->rlve = $rlve;
+		
     }
     
     public function getGrid(bool $default): array
@@ -35,8 +40,10 @@ class GridService extends GridDto implements State
 
     public function getGridSolved(array $matrix): array
     {
+		$grid = $this->rlve->gridSolution();
+		//$grid = $this->dta->mapGridSolved($matrix);
         return [
-            'grid'=> $this->dta->mapGridSolved($matrix),
+            'grid'=> $grid,
             'matrix' => $matrix
         ];
     }
